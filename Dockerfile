@@ -1,4 +1,4 @@
-FROM area51/node:latest-job
+FROM area51/node:latest
 MAINTAINER Peter Mount <peter@retep.org>
 
 ENV CMD=/opt/notify-rabbit.js
