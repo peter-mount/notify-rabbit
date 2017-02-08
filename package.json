@@ -1,0 +1,14 @@
+{
+  "name": "node-rail-td",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node /opt/notify-rabbit.js"
+  },
+  "dependencies": {
+    "amqplib": "^0.5.1",
+    "bluebird": "^3.3.4",
+    "js-yaml": "^3.8.1",
+    "pg-promise": ">3.2.3"
+  }
+}

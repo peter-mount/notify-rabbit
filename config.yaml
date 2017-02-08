@@ -1,0 +1,59 @@
+# Example configuration in YAML
+#
+databases:
+    # Local test database
+    test:
+        enabled: true
+        host: localhost
+        port: 5432
+        database: postgres
+        user: postgres
+        password: postgres
+        ssl: false
+
+# Notify listeners
+# These are used by the notify-rabbit.js application which connects
+# to each database and adds a notify listener so that postgresql code
+# can issue NOTIFY('key','message') and that message is sent to
+# a rabbitmq instance
+notify:
+    -
+        # Is this notifier enabled, disabled if absent/ !true
+        enabled: true
+        # Database to connect to (required)
+        database: test
+        # The notification name to listen to (required)
+        name: reportengine
+        # Log the message and meta data to the console (optional)
+        debug: true
+        # Convert the payload into json (optional) defaults to false
+        json: true
+        # Handlers to use. This is a map of handlers and any config they
+        # require. The config format is specific to each handler. Also
+        # An app doesn't have to support a handler, just define them
+        # when calling the notify() method
+        handlers:
+            # Example handler, logs the payload to the console (optional)
+            #console: true
+            # Rabbit instance to use
+            rabbit:
+                instance: testRabbit
+                # Topic to use, defaults to amq.topic (required if rabbit set)
+                #topic: amq.topic
+                # key: use just a routing key and send entire message to that key
+                key: job.status
+                # Valid only if json:true if set then the key in the message
+                # containing the routing key
+                #routingKey: key
+                # Valid only when routingKey is valid, the key of the message
+                # containing the actual message. If missing then the original
+                # message is sent instead
+                #payload: body
+
+# RabbitMQ configuration
+rabbit:
+    # Test rabbit instance with user guest, password guest on localhost.
+    # You can put an IP address here, for IPv6 enclose the address with []
+    testRabbit: amqp://guest:guest@localhost
+
+        
